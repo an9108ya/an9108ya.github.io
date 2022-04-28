@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>課堂作業07</title>
+    <style>
+	h3 {
+		color:green ;
+	    padding-left:50px;
+	    }
+
+	table{
+    	border: 2px solid ;   /*設定表格外框線粗細*/
+		border-collapse:collapse;   /*使表格框跟每一格的框不重複*/
+		border-color: orange ;   /*設定表格外框線顏色*/
+    	color:purple ;   /*表格中文字顏色*/
+    	}
+
+
+    td{
+    	padding:5px;   /*設定表格中文字與框線的距離*/
+    	width:60px;   /*設定表格中每一格分別的寬度*/
+    	border: 2px solid ;   /*設定表格中每一格格線( 縱線 )粗細*/
+    	border-color: orange ;   /*設定表格內框線( 縱線 )顏色*/
+    	text-align:center;   /*表格文字置中*/
+    	}
+
+    tr{
+    	border: 2px solid ;   /*設定表格中每一格格線( 橫線 )粗細*/
+    	border-color: orange ;   /*設定表格內框線( 橫線 )顏色*/
+   		}
+
+    </style>
+</head>
+<body>
+<script>
+
+
+	//
+    //第一種表格表現方式(覺得這樣比較好看)
+    //勉強還能理解這邊在幹嘛~
+    //
+
+	document.write("<h3>九九乘法表</h3>");
+
+	    document.write("<table>");
+
+		document.write("<tr>");
+
+			for (i=1;i<=9;i++){
+    			document.write("<td>");
+    			document.write( i );
+    			document.write("</td>");
+    			}
+
+    	document.write("</tr>");
+
+			for ( j = 1; j <= 9; j++) {
+				document.write("<tr>");
+
+				for ( i = 1; i <= 9; i++) {
+					document.write("<td>");
+    				document.write( i + "x" + j + " = " + i * j + "<br>");
+    				}
+    			document.write("</td>");
+    		}
+				document.write("</tr>");
+
+    document.write(" </table>");
+
+    /*其實我不是很清楚我在幹嘛...但至少東西出來了...*/
+
+
+</script>
+
+
+</html>
