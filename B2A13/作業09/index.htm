@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>課堂作業09</title>
+	<style>
+		h3 {color: blue; }
+
+		h4 {color: red; }
+
+		label {color: brown; }
+
+		input { color: grey; margi: 5px; }
+
+		div{ color: grey; margi: 5px; }
+
+		table{
+		font-weight: bold;
+		color: tan;
+    	border: 1px solid ;
+		border-collapse:collapse;
+		border-color: grey ;
+    	}
+
+    td:nth-child(1){
+    	width:150px;
+    	border: 1px solid ;
+    	border-color: grey ;
+    	text-align:center ;
+    	}
+
+    td:nth-child(2){
+    	width:300px;
+    	border: 1px solid ;
+    	border-color: grey ;
+    	text-align:left ;
+    	}
+
+    tr:nth-child(n){
+    	background-color:#FFFCEC;
+    	border: 1px solid ;
+    	border-color: grey ;
+   		}
+
+   	li{ color: brown }
+
+   	button{
+   		background-color: #FFEEDD;
+   	 	box-shadow: 5px 6px #BEBEBE;
+   	}
+
+	</style>
+</head>
+	<body>
+	<h3>請填寫購物資訊</h3>
+
+	<!--
+	form標籤~建立表單， label標籤~欄位名稱， input標籤~輸入欄
+	<input type="輸入欄位屬性"  name="欄位名稱"  value="預設值">
+	name="欄位名稱" 指定送出去的該筆資料要用什麼名稱，目的是讓遠端伺服器才能透過明確定義好的名稱去取出對應的欄位值。
+	-->
+
+	<form id="form 01">
+
+	<ul>
+		<li>
+		<label>姓名:</label>
+		<input type="text"  name="name 01"  value="謝雅安"><br>
+		</li>
+
+		<li>
+		<label>收件住址:</label>
+		<input type="text"  name="address 01"  value="台北市和平東路三段435巷"><br>
+		</li>
+
+		<li>
+		<label>電話:</label>
+		<input type="tel"  name="tel 01"  value="0953XXX911"><br>
+		</li>
+
+		<li>
+		<label>電子郵件:</label>
+		<input type="email"  name="email 01"  value="u10905113@ms.ttu.edu.tw"><br>
+		</li>
+
+		<li>
+		<label>指定送貨日期:</label>
+		<input type="date"  name="date 01"><br>
+		</li>
+
+		<li>
+		<label>水果種類: (三選一)</label><br><!-- radio 單選，checkbox多選-->
+		<input type="radio"  name="fruit"  id="fruit 01"  value="愛文芒果(一箱)">愛文芒果(一箱) 475元<br>
+		<input type="radio"  name="fruit"  id="fruit 02"  value="有機木瓜(6台斤)">有機木瓜(6台斤) 435元<br>
+		<input type="radio"  name="fruit"  id="fruit 03"  value="黑鑽石桑葚(5台斤)">黑鑽石桑葚(5台斤) 749元<br>
+		<input type="radio"  name="fruit"  id="fruit 04"  value="富士蘋果(一盒)">富士蘋果(一盒) 650元<br>
+		</li>
+	</ul>
+
+	</form>
+	<br>
+
+	<button onclick="shoppingInfo()"><h4>我要結帳</h4></button>
+	<!--<button onclick>叫出函數shoppingInfo()，下再編輯shoppingInfo()函式-->
+
+	<div id="demo"></div>
+	<script>
+	//
+	//之前以document.write("<tr><td>")的方式加表格，但東西一直出不來
+	//老師說因為程式是寫在demo中，用document.write會打亂他的程式，故<tr><td>加在text中
+	//<table>寫的位子好像怪怪的(變成好多個表格疊加)，但試過了各種寫法，這是唯一一個表格有跳出來的寫法，所以就先將就了~
+	//這邊弄得我好亂啊~function shoppingInfo()中，分別寫case0~4，case5~8
+	//然後我就不行了
+	//
+		function shoppingInfo() {
+		const x = document.getElementById ("form 01");
+		var item = " " ;
+		var price = 0;
+		var text = "<h4>您的購物資訊如下</h4>";
+		var i ;
+		for ( i=0; i<=4; i++ ){
+			switch(i) {  //一律從0開始
+				case 0:
+					item= "姓名:" ; break;
+				case 1:
+					item= "收件住址:" ; break;
+				case 2:
+					item= "電話:" ; break;
+				case 3:
+					item= "電子郵件:" ; break;
+				case 4:
+					item= "指定送貨日期:" ; break;
+				}
+			text += "<table><tr><td>" + item + "</td> <td>" + x.elements[i].value +  "</td></tr></table>";
+			}
+
+		for ( i=5; i<=8; i++ ){
+			if(x.elements[i].checked == true ){
+				switch(i) {
+					case 5:
+					price= 475 ; break;
+					case 6:
+					price= 435 ; break;
+					case 7:
+					price= 749 ; break;
+					case 8:
+					price= 650 ; break;
+				}
+				text += "<table><tr><td> 水果價格: </td><td>" + x.elements[i].value + "</td></tr></table>" ;
+				text += "<table><tr><td> 價格合計: </td><td>" + price + "元 </td></tr></table>";
+				text += "<br>"
+				text +="<button><h4>確定</h4></button>"
+			}
+		}
+		document.getElementById ("demo").innerHTML=text;
+		}
+
+	</script>
+
+</html>
