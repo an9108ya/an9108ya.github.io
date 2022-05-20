@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+		<title>作業12</title>
+	<style>
+	h4 { color: red; }
+	div { color: #4169E1; margin: 5px; }
+	input { color: grey; margi: 5px; }
+	table{
+		font-weight: bold;
+    	border: 1px solid ;
+		border-collapse:collapse;
+		border-color: black ;
+    	}
+    td:nth-child(1){
+    	width:150px;
+    	border: 1px solid ;
+    	border-color: black ;
+    	text-align:center ;
+    	}
+    td:nth-child(2){
+    	width:300px;
+    	border: 1px solid ;
+    	border-color: black ;
+    	text-align:left ;
+    	}
+    td:nth-child(3){
+    	width:60px;
+    	border: 1px solid ;
+    	border-color: black ;
+    	text-align:left ;
+    	}
+    button{
+   		background-color: #FFEEDD;
+   	 	box-shadow: 5px 6px #BEBEBE;
+   	}
+
+	</style>
+</head>
+	<body>
+	<form id="form01">
+
+		姓名: <input type="text" name="name01" value="謝X安"><br>
+
+		收件住址: <input type="text" name="address01" value="和平東路X段XXX巷X號X樓"><br>
+
+		電話: <input type="tel" name="tel01" value="095XXXXX11"><br>
+
+		電子郵件: <input type="email" name="email01" value="u10XXXX13.ttu.edu.tw"><br>
+
+		指定送貨日期: <input type="date" name="date01"><br>
+
+		品項:<br>
+		<input type="checkbox" name="fruit" id="fruit01" value="任天堂 Nintendo Switch Lite(顏色隨機)"> 任天堂 Nintendo Switch Lite(顏色隨機) 6180元;
+		購買數量: <input type="number" name="number01"><br>
+
+		<input type="checkbox" name="fruit" id="fruit02" value="Switch遊戲 薩爾達傳說 曠野之息"> Switch遊戲 薩爾達傳說 曠野之息 1750元:
+		購買數量: <input type="number" name="number02"><br>
+
+		<input type="checkbox" name="fruit" id="fruit03" value="Switch遊戲 寶可夢傳說 阿爾宙斯">Switch遊戲 寶可夢傳說 阿爾宙斯 1490元;
+		購買數量: <input type="number" name="number03"><br>
+
+		<input type="checkbox" name="fruit" id="fruit04" value="Switch遊戲 集合啦！動物森友會">Switch遊戲 集合啦！動物森友會 1550元;
+		購買數量: <input type="number" name="number04"><br>
+
+		<!--從姓名到送貨日期，分別是case0~case4，而在品項選項中，
+		4個選項分別是case5、7、9、11，選項數量是case6、8、10、12
+		下面再寫switch什麼東東的時候，記得此處要顯示的是case5、7、9、11(選項類別)
+		-->
+
+	</form>
+
+	<button onclick="shoppingInfo()"><h4>結帳</h4></button>
+	<div id="demo"></div>
+
+	<script>
+
+	/*
+	(參考課本 12-13)
+	物件的使用，舉例
+	var fruit = function (fruitType, fruitPrice, no) //建立物件屬性(建立物件函式)，括號中的東東為物件屬性
+		{ this.Type = fruitType;
+		this.Price = fruitPrice;
+		this.subTotal = function (no)... }
+	var fruit01 = new fruit ("任天堂 Nintendo Switch Lite(顏色隨機)",6180, 0); //建立新物件1
+	var fruit02 = new fruit ("Switch遊戲 薩爾達傳說 曠野之息",1750, 0); //建立新物件2
+	.
+	.
+	.
+	text=...會去抓物件屬性帶入 (應該是這樣吧...)
+	*/
+	//table還是帶得亂七八糟的 O3O
+
+	var text = "<h4>您的購物資訊如下:</h4>"; //text全域為變數
+
+	var fruit = function (fruitType, fruitPrice, no) {
+		this.Type = fruitType;
+		this.Price = fruitPrice;
+		this.subTotal = function (no) {
+			text += "<table>"
+			text += "<tr><td>品項:</td><td>"+ this.Type + "</td><td> 共" + no + "單位</td></tr>";
+			text += "<tr><td>價格小計:</td><td>"+ this.Price * no + "元</td></tr>";
+			text += "</table>"
+		};
+	};
+
+	var fruit01 = new fruit ("任天堂 Nintendo Switch Lite(顏色隨機)",6180, 0);
+	var fruit02 = new fruit ("Switch遊戲 薩爾達傳說 曠野之息",1750, 0);
+	var fruit03 = new fruit ("Switch遊戲 寶可夢傳說 阿爾宙斯",1490, 0);
+	var fruit04 = new fruit ("Switch遊戲 集合啦！動物森友會",1550, 0);
+
+	function shoppingInfo() {
+		var x = document.getElementById("form01");
+		var item = "";
+		var sumToPay = 0;
+		var i;
+		for (i = 0; i <= 4; i++) {
+			switch (i) {
+				case 0: item = "姓名: "; break;
+				case 1: item = "收件住址: "; break;
+				case 2: item = "電話: "; break;
+				case 3: item = "電子郵件: "; break;
+				case 4: item = "指定送貨日期: "; break;
+			}
+		text += "<table>"
+		text +="<tr><td>" + item +"</td> <td>" + x.elements[i].value +  "</td><td></td></tr>";
+		text += "</table>"
+		}
+
+	for (i=5; i<=11; i++) {
+		if(x.elements[i].checked === true){
+			switch(i) {
+				case 5: fruit01.no= x.elements[i+1].value;
+				sumToPay += fruit01.Price* fruit01.no;
+				fruit01.subTotal (fruit01.no);
+				break;
+
+				case 7: fruit02.no= x.elements [i+1].value;
+				sumToPay += fruit02.Price* fruit02.no;
+				fruit02.subTotal (fruit02.no);
+				break;
+
+				case 9: fruit03.no = x.elements [i+1].value;
+				sumToPay += fruit03.Price* fruit03.no;
+				fruit03.subTotal (fruit03.no);
+				break;
+
+				case 11: fruit04.no = x.elements [i+1].value;
+				sumToPay += fruit04.Price* fruit04.no;
+				fruit04.subTotal (fruit04.no);
+				break;
+			}
+		}
+	}
+		text += "<table>"
+		text +="<table><tr><td><h4>價格合計:</h4></td><td><h4>" + sumToPay + "元</h4></td><td></td></tr></table>";
+		document.getElementById("demo").innerHTML = text;
+		text += "</table>"
+	}
+
+	</script>
+	</body>
+
+</html>
